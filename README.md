@@ -11,6 +11,18 @@
 - Cloudinary
 - Industry Standard Folder Structure
 
+## Link
+
+- [Video Link](https://drive.google.com/file/d/1EFC4UHTT5jGDn9ZHBzIFhu0DWOiBDObD/view?usp=drive_link)
+- [Production Link](https://lectureschedulerweb.netlify.app/)
+
+## Credentials
+
+### Admin
+
+- email : admin@gmail.com
+- password : Test@1234
+
 ## Author-Contact
 
 - [Ajinkya-Github](https://github.com/AjinkyaVeer007)
