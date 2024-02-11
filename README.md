@@ -11,10 +11,6 @@
 - Cloudinary
 - Industry Standard Folder Structure
 
-## Link
-
-- [Production Link](https://lectureschedulerweb.netlify.app/)
-
 ## Author-Contact
 
 - [Ajinkya-Github](https://github.com/AjinkyaVeer007)
