@@ -1,0 +1,4 @@
+MONGODB_URL = your-mongodb-url
+PORT = your-port
+TOKEN_SECRET_KEY = your-key
+TOKEN_EXPIRY = 2h
