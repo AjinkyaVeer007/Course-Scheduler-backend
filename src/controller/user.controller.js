@@ -2,6 +2,7 @@ import User from "../models/user.model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
+import Courseschedule from "../models/courseschedule.model.js";
 
 const saltRounds = 10;
 
@@ -119,7 +120,7 @@ export const login = async (req, res) => {
 
 export const changePassword = async (req, res) => {
   try {
-    const { email, password, userId } = req.body;
+    const { email, password } = req.body;
 
     const user = await User.findOne({ email });
 
@@ -132,7 +133,7 @@ export const changePassword = async (req, res) => {
 
     const encryptedPassword = await bcrypt.hash(password, saltRounds);
 
-    await User.findByIdAndUpdate(userId, {
+    await User.findByIdAndUpdate(user?._id, {
       isPasswordChange: true,
       password: encryptedPassword,
     });
@@ -158,7 +159,19 @@ export const deleteUser = async (req, res) => {
         success: false,
       });
     }
-    await Courseschedule.findByIdAndDelete(req.params.id);
+    const docsToDelete = await Courseschedule.aggregate([
+      {
+        $match: {
+          assignTo: new ObjectId(req.params.id),
+        },
+      },
+    ]);
+
+    for (const doc of docsToDelete) {
+      await Courseschedule.findByIdAndDelete(doc._id);
+    }
+
+    await User.findByIdAndDelete(req.params.id);
 
     res.status(200).json({
       message: "User deleted successfully",

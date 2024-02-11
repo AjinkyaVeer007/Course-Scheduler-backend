@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import Course from "../models/course.model.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
+import Courseschedule from "../models/courseschedule.model.js";
 
 const ObjectId = mongoose.Types.ObjectId;
 
@@ -14,6 +15,18 @@ export const deleteCourse = async (req, res) => {
         success: false,
       });
     }
+    const docsToDelete = await Courseschedule.aggregate([
+      {
+        $match: {
+          courseId: new ObjectId(req.params.id),
+        },
+      },
+    ]);
+
+    for (const doc of docsToDelete) {
+      await Courseschedule.findByIdAndDelete(doc._id);
+    }
+
     await Course.findByIdAndDelete(req.params.id);
     res.status(200).json({
       message: "Course deleted successfully",
