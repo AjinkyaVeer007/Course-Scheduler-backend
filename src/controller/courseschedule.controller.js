@@ -81,7 +81,7 @@ export const getScheduledCourse = async (req, res) => {
       courses = await Courseschedule.aggregate([
         {
           $match: {
-            assignTo: ObjectId(userId),
+            assignBy: new ObjectId(userId),
           },
         },
         {
@@ -128,7 +128,7 @@ export const getScheduledCourse = async (req, res) => {
       courses = await Courseschedule.aggregate([
         {
           $match: {
-            assignTo: ObjectId(userId),
+            assignTo: new ObjectId(userId),
           },
         },
         {
@@ -154,7 +154,7 @@ export const getScheduledCourse = async (req, res) => {
       ]);
     }
 
-    req.status(200).json({
+    res.status(200).json({
       data: courses ? courses : [],
       message: "Course fetch successfully",
       success: true,

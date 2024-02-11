@@ -78,7 +78,7 @@ export const getcourse = async (req, res) => {
     const courses = await Course.aggregate([
       {
         $match: {
-          createdBy: ObjectId(userId),
+          createdBy: new ObjectId(userId),
         },
       },
     ]);
